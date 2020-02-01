@@ -69,7 +69,7 @@ namespace WpfWizardDemo.MyWizard
 
             _currentPage++;
 
-            Navigate(args, () => _eventAggregator.GetEvent<MyWizardNavNextCompletedEvent>().Publish(args));
+            Navigate(() => _eventAggregator.GetEvent<MyWizardNavNextCompletedEvent>().Publish(args));
         }
 
         private void Back(MyWizardNavEventArgs args)
@@ -82,10 +82,10 @@ namespace WpfWizardDemo.MyWizard
 
             _currentPage--;
 
-            Navigate(args, () => _eventAggregator.GetEvent<MyWizardNavPrevCompletedEvent>().Publish(args));
+            Navigate(() => _eventAggregator.GetEvent<MyWizardNavPrevCompletedEvent>().Publish(args));
         }
 
-        private void Navigate(MyWizardNavEventArgs args, Action callback)
+        private void Navigate(Action callback)
         {
             var region = _regionManager.Regions[_regionName];
 
