@@ -3,7 +3,6 @@ using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using WpfWizardDemo.MyWizard.Events;
 using WpfWizardDemo.MyWizard.EventsArgs;
 using WpfWizardDemo.Utilities;
@@ -59,7 +58,7 @@ namespace WpfWizardDemo.MyWizard
             _prevToken = _eventAggregator.GetEvent<MyWizardNavPrevEvent>().Subscribe(Back);
         }
 
-        public void Next(MyWizardNavEventArgs args)
+        private void Next(MyWizardNavEventArgs args)
         {
             if (_currentPage == _sequence.Max(s => s.Key))
             {
@@ -72,7 +71,7 @@ namespace WpfWizardDemo.MyWizard
             Navigate(args, () => _eventAggregator.GetEvent<MyWizardNavNextCompletedEvent>().Publish(args));
         }
 
-        public void Back(MyWizardNavEventArgs args)
+        private void Back(MyWizardNavEventArgs args)
         {
             if (_currentPage == _sequence.Min(s => s.Key))
             {
@@ -105,7 +104,7 @@ namespace WpfWizardDemo.MyWizard
             });
         }
 
-        public void ResetWizard()
+        private void ResetWizard()
         {
             _eventAggregator.GetEvent<MyWizardNavNextEvent>().Unsubscribe(_nextToken);
             _eventAggregator.GetEvent<MyWizardNavPrevEvent>().Unsubscribe(_prevToken);
