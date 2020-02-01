@@ -81,8 +81,6 @@ namespace WpfWizardDemo.MyWizard
                 return;
             }
 
-            var region = _regionManager.Regions[_regionName];
-
             _regionManager.Regions[_regionName].RemoveAll();
 
             _regionManager.RequestNavigate(_regionName, _sequence[_currentPage], _ => {
