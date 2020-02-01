@@ -46,6 +46,7 @@ namespace WpfWizardDemo.MyWizard
 
         public void Start(string regionName)
         {
+            // reset at the start to refresh all the resources if the wizard started twice
             ResetWizard();
 
             _regionName = regionName;
