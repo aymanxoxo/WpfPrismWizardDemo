@@ -61,12 +61,6 @@ namespace WpfWizardDemo.MyWizard
 
         private void Next(MyWizardNavEventArgs args)
         {
-            if (_currentPage == _sequence.Max(s => s.Key))
-            {
-                ResetWizard();
-                return;
-            }
-
             _currentPage++;
 
             Navigate(() => _eventAggregator.GetEvent<MyWizardNavNextCompletedEvent>().Publish(args));
@@ -74,12 +68,6 @@ namespace WpfWizardDemo.MyWizard
 
         private void Back(MyWizardNavEventArgs args)
         {
-            if (_currentPage == _sequence.Min(s => s.Key))
-            {
-                ResetWizard();
-                return;
-            }
-
             _currentPage--;
 
             Navigate(() => _eventAggregator.GetEvent<MyWizardNavPrevCompletedEvent>().Publish(args));
@@ -87,6 +75,12 @@ namespace WpfWizardDemo.MyWizard
 
         private void Navigate(Action callback)
         {
+            if (_currentPage > _sequence.Max(s => s.Key) || _currentPage < _sequence.Min(s => s.Key))
+            {
+                ResetWizard();
+                return;
+            }
+
             var region = _regionManager.Regions[_regionName];
 
             _regionManager.Regions[_regionName].RemoveAll();
