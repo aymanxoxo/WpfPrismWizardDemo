@@ -10,7 +10,7 @@ using WpfWizardDemo.Utilities;
 
 namespace WpfWizardDemo.MyWizard
 {
-    public class MyWizardNavManager : IMyWizardNavManager, IDisposable
+    public class MyWizardNavManager : IMyWizardNavManager
     {
         private readonly IRegionManager _regionManager;
         private readonly IEventAggregator _eventAggregator;
@@ -85,11 +85,6 @@ namespace WpfWizardDemo.MyWizard
             Navigate(args, () => _eventAggregator.GetEvent<MyWizardNavPrevCompletedEvent>().Publish(args));
         }
 
-        public void ResetWizard()
-        {
-            this.Dispose();
-        }
-
         private void Navigate(MyWizardNavEventArgs args, Action callback)
         {
             var region = _regionManager.Regions[_regionName];
@@ -110,7 +105,7 @@ namespace WpfWizardDemo.MyWizard
             });
         }
 
-        public void Dispose()
+        public void ResetWizard()
         {
             _eventAggregator.GetEvent<MyWizardNavNextEvent>().Unsubscribe(_nextToken);
             _eventAggregator.GetEvent<MyWizardNavPrevEvent>().Unsubscribe(_prevToken);
